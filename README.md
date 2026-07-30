@@ -1,4 +1,4 @@
-# Kairos
+# Kairos (nvm, I'm still working on it)
 
 [github.com/falselunatic/Kairos](https://github.com/falselunatic/Kairos)
 
