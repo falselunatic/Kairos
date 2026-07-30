@@ -58,19 +58,71 @@ each with its own floating mascot (a cloud pup / a sleepy bat).
 
 ## Screenshots
 
-<!--
-Add screenshot files to the screenshots/ folder, then uncomment and fill in the
-rows below (see screenshots/README.md for naming suggestions). Example:
+### Sign up / log in
 
-![Chat](screenshots/chat.png)
-![Kairos Code](screenshots/code.png)
-![Docs Q&A](screenshots/docs.png)
-![Notes](screenshots/notes.png)
-![Memories](screenshots/memories.png)
-![Roast Battle](screenshots/roast.png)
-![About](screenshots/about.png)
-![Chrome extension](screenshots/extension.png)
--->
+| | |
+|---|---|
+| ![Login](screenshots/login.png) | ![Sign up](screenshots/signup1.png) |
+| ![OTP verification](screenshots/signup2.png) | ![Login, Shadow theme](screenshots/darkmode5.png) |
+
+### Chat
+
+Kairos recalling facts about you and weaving them naturally into the conversation:
+
+![Chat, empty state](screenshots/chat1.png)
+![Chat, remembering a fact](screenshots/chat2.png)
+![Chat, using what it remembers](screenshots/chat3.png)
+![Chat, Shadow theme](screenshots/darkmode1.png)
+
+### Kairos Code
+
+![Kairos Code, giving a step-by-step guide](screenshots/code1.png)
+![Kairos Code, example with a code block](screenshots/code2.png)
+![Kairos Code, Shadow theme](screenshots/darkmode2.png)
+
+### Docs Q&A
+
+Upload documents, then ask questions that get answered from their content:
+
+![Docs Q&A, uploaded documents](screenshots/docs.png)
+![Docs Q&A, uploading](screenshots/docs1.png)
+![Docs Q&A, answer sourced from an uploaded doc](screenshots/docs2.png)
+![Docs Q&A, Shadow theme](screenshots/darkmode3.png)
+
+### Notes
+
+Manual notes, arithmetic auto-calculation, and Kairos writing its own notes and asking before deleting one:
+
+![Notes, list](screenshots/notes.png)
+![Notes, arithmetic line computed automatically](screenshots/notes1.png)
+![Notes, editing](screenshots/notes2.png)
+![Notes, edit form](screenshots/edit_notes.png)
+![Notes, an auto-generated note from conversation](screenshots/auto_generated_note.png)
+![Notes, confirming a delete](screenshots/delete_note.png)
+![Notes, Shadow theme](screenshots/darkmode4.png)
+
+### Memories
+
+Everything Kairos has picked up about you, with per-item and forget-all controls:
+
+![Memories, list](screenshots/memories1.png)
+![Memories, more examples](screenshots/memories2.png)
+![Memories, confirming forget-all](screenshots/memories3.png)
+
+### Roast Battle
+
+![Roast Battle, round 1](screenshots/roast1.png)
+![Roast Battle, confirming abandon](screenshots/roast_giveup.png)
+
+### About
+
+Full architecture, database schema, and data-flow diagrams, plus a chat to ask Kairos about itself:
+
+![About, stack overview + DB schema diagram](screenshots/about1.png)
+![About, architecture diagram](screenshots/about2.png)
+![About, document embedding/search flow](screenshots/about3.png)
+![About, data flow steps](screenshots/about4.png)
+![About, ask Kairos about itself](screenshots/about5.png)
 
 ---
 
