@@ -67,7 +67,7 @@ each with its own floating mascot (a cloud pup / a sleepy bat).
 
 ### Chat
 
-Kairos recalling facts about you and weaving them naturally into the conversation:
+Kairos recalling facts about you and adding them naturally into the conversation:
 
 ![Chat, empty state](screenshots/chat1.png)
 ![Chat, remembering a fact](screenshots/chat2.png)
