@@ -1,0 +1,139 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-left: 220px;
+  background: radial-gradient(circle at 20% 0%, var(--bubble-assistant-bg), var(--background) 60%);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  padding: 2rem 1.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.forgetAllButton {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.8rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.forgetAllButton:hover {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.forgetAllButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.8rem;
+  background: var(--bubble-assistant-bg);
+  color: var(--bubble-assistant-fg);
+}
+
+.itemText {
+  font-size: 0.92rem;
+}
+
+.deleteButton {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.deleteButton:hover {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .page {
+    padding-left: 0;
+  }
+
+  .container {
+    padding-top: 4.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 4.5rem 0.75rem 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .panel {
+    padding: 1rem;
+    border-radius: 0.9rem;
+  }
+}

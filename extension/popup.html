@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Kairos</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="header">
+      <span class="brand">Kairos</span>
+      <button id="logoutBtn" class="linkBtn" hidden>Log out</button>
+    </div>
+
+    <!-- Auth views -->
+    <div id="authView">
+      <div class="tabs">
+        <button id="loginTab" class="tabBtn active">Log in</button>
+        <button id="signupTab" class="tabBtn">Sign up</button>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <input id="loginEmail" type="email" placeholder="Email" />
+        <input id="loginPassword" type="password" placeholder="Password" />
+        <button type="submit">Log in</button>
+        <div id="loginError" class="error"></div>
+      </form>
+
+      <form id="signupForm" hidden novalidate>
+        <input id="signupEmail" type="email" placeholder="Email" />
+        <input id="signupPassword" type="password" placeholder="Password (min 6 chars)" />
+        <button type="submit">Sign up</button>
+        <div id="signupError" class="error"></div>
+      </form>
+
+      <form id="otpForm" hidden novalidate>
+        <p id="otpHint" class="hint"></p>
+        <input id="otpCode" type="text" placeholder="Verification code" />
+        <button type="submit">Verify & continue</button>
+        <div id="otpError" class="error"></div>
+      </form>
+    </div>
+
+    <!-- Battle view -->
+    <div id="battleView" hidden>
+      <div class="quickNav">
+        <button class="navLinkBtn" data-path="/">Chat</button>
+        <button class="navLinkBtn" data-path="/memories">Memories</button>
+        <button class="navLinkBtn" data-path="/code">Code</button>
+        <button class="navLinkBtn" data-path="/docs">Docs</button>
+      </div>
+
+      <div id="idleState">
+        <p class="hint">Kairos is watching quietly. It'll message you when it's got something.</p>
+        <button id="startBattleBtn">Start a roast battle now</button>
+      </div>
+
+      <div id="activeState" hidden>
+        <div class="scoreboard">
+          <div><span class="scoreLabel">Kairos</span><div id="kairosScore" class="scoreValue">0</div></div>
+          <div class="vs">VS</div>
+          <div><span class="scoreLabel">You</span><div id="userScore" class="scoreValue">0</div></div>
+        </div>
+        <div id="log" class="log"></div>
+        <form id="replyForm" novalidate>
+          <input id="replyInput" type="text" placeholder="Throw your comeback..." />
+          <button type="submit">Throw</button>
+        </form>
+        <div id="winnerBanner" class="winnerBanner" hidden></div>
+      </div>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

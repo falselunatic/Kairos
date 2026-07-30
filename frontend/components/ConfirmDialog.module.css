@@ -1,0 +1,66 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.dialog {
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+  animation: pop 0.15s ease both;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.message {
+  font-size: 0.95rem;
+  color: var(--foreground);
+  line-height: 1.5;
+  margin-bottom: 1.1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.cancelButton {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.confirmButton {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}

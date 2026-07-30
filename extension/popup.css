@@ -1,0 +1,190 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  min-height: 200px;
+  margin: 0;
+  padding: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff5f8;
+  color: #3a2530;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.brand {
+  font-size: 1.2rem;
+  font-weight: 800;
+  background: linear-gradient(100deg, #ec4899, #fb923c 50%, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.linkBtn {
+  background: none;
+  border: none;
+  color: #ec4899;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.quickNav {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.navLinkBtn {
+  flex: 1;
+  padding: 6px 4px;
+  border-radius: 8px;
+  border: 1px solid #f4b8d3;
+  background: #fff;
+  color: #3a2530;
+  cursor: pointer;
+  font-size: 0.72rem;
+}
+
+.navLinkBtn:hover {
+  background: #ffe0ec;
+}
+
+.tabBtn {
+  flex: 1;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid #f4b8d3;
+  background: #fff;
+  color: #3a2530;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.tabBtn.active {
+  background: #ec4899;
+  color: #fff;
+  border-color: #ec4899;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #f4b8d3;
+  font-size: 0.85rem;
+}
+
+button[type="submit"],
+#startBattleBtn {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: none;
+  background: #ec4899;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.error {
+  color: #e11d48;
+  font-size: 0.75rem;
+  min-height: 1em;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: #a8788f;
+  text-align: center;
+  margin: 4px 0 10px;
+}
+
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.scoreLabel {
+  font-size: 0.7rem;
+  color: #a8788f;
+}
+
+.scoreValue {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.vs {
+  font-weight: 700;
+  color: #ec4899;
+  font-size: 0.8rem;
+}
+
+.log {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.bubbleRow {
+  display: flex;
+}
+
+.bubbleRow.user {
+  justify-content: flex-end;
+}
+
+.bubble {
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  max-width: 85%;
+  line-height: 1.35;
+}
+
+.bubble.kairos {
+  background: #ffe0ec;
+}
+
+.bubble.user {
+  background: #ec4899;
+  color: #fff;
+}
+
+.scoreTag {
+  font-size: 0.65rem;
+  color: #a8788f;
+  margin: -4px 0 4px;
+}
+
+.winnerBanner {
+  text-align: center;
+  font-weight: 700;
+  padding: 8px 0;
+  color: #ec4899;
+}

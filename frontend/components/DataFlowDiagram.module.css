@@ -1,0 +1,50 @@
+.svg {
+  width: 100%;
+  height: auto;
+  max-width: 420px;
+  display: block;
+  margin: 0.5rem auto 0;
+}
+
+.box {
+  fill: var(--bubble-assistant-bg);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.boxTitle {
+  fill: var(--bubble-assistant-fg);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: inherit;
+}
+
+.boxSubtitle {
+  fill: var(--muted);
+  font-size: 9.5px;
+  font-family: inherit;
+}
+
+.arrow {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0.75;
+}
+
+.arrowHead {
+  fill: var(--accent);
+  opacity: 0.75;
+}
+
+.divider {
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+.dividerLabel {
+  fill: var(--muted);
+  font-size: 10px;
+  font-style: italic;
+  font-family: inherit;
+}

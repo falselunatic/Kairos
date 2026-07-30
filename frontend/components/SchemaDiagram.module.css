@@ -1,0 +1,31 @@
+.svg {
+  width: 100%;
+  height: auto;
+  max-width: 720px;
+  display: block;
+  margin: 0.5rem auto 0;
+}
+
+.box {
+  fill: var(--bubble-assistant-bg);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.boxTitle {
+  fill: var(--bubble-assistant-fg);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.boxSubtitle {
+  fill: var(--muted);
+  font-size: 8.5px;
+  font-family: inherit;
+}
+
+.link {
+  stroke: var(--border);
+  stroke-width: 1.5;
+}

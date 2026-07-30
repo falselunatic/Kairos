@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Kairos",
+  "version": "1.0.0",
+  "description": "A companion that remembers you and roasts you when you least expect it.",
+  "permissions": ["tabs", "activeTab", "storage", "notifications", "alarms"],
+  "host_permissions": ["http://localhost:8000/*", "https://*.supabase.co/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Kairos",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

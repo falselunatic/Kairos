@@ -1,0 +1,230 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-left: 220px;
+  background: radial-gradient(circle at 20% 0%, var(--bubble-assistant-bg), var(--background) 60%);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 720px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem;
+}
+
+.panelTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.input,
+.textarea {
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.7rem;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.errorText {
+  color: #e11d48;
+  font-size: 0.82rem;
+}
+
+.button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.secondaryButton {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.calcBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  background: var(--bubble-assistant-bg);
+  color: var(--bubble-assistant-fg);
+  font-size: 0.82rem;
+}
+
+.calcLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.calcResult {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.noteGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.noteCard {
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.noteCard:hover {
+  transform: translateY(-2px);
+}
+
+.noteCardEditing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.noteCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.noteCardTitle {
+  font-weight: 600;
+  font-size: 0.95rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.noteCardActions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.noteCardContent {
+  font-size: 0.85rem;
+  color: var(--foreground);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.editButton,
+.deleteButton {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  font-size: 0.72rem;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .page {
+    padding-left: 0;
+  }
+
+  .container {
+    padding-top: 4.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 4.5rem 0.75rem 1rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+
+  .noteGrid {
+    grid-template-columns: 1fr;
+  }
+}
