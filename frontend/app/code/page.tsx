@@ -7,6 +7,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { BrandName } from "@/components/BrandName";
 import { Markdown } from "@/components/Markdown";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
 import styles from "./code.module.css";
 
 type Message = { role: "user" | "assistant"; content: string; searchUrl?: string | null };
@@ -70,15 +71,16 @@ export default function CodePage() {
         },
         body: JSON.stringify({ message: text }),
       });
+      if (!res.ok) throw new Error(await extractErrorDetail(res));
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: data.reply, searchUrl: data.search_url ?? null },
       ]);
-    } catch {
+    } catch (err) {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "(couldn't reach the backend, is it running?)" },
+        { role: "assistant", content: `(${friendlyFetchError(err, "something went wrong, try again.")})` },
       ]);
     } finally {
       setLoading(false);

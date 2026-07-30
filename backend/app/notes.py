@@ -15,8 +15,18 @@ a general concept, not something about the user, so those must return null even 
 informative. Only save it if it's actually about the user's own situation, not a fact Kairos
 supplied about the world in general. Skip small talk and one-off throwaway remarks too.
 
-If it's worth saving, return ONLY this JSON, nothing else: {{"title": "...", "content": "..."}}
-If it is NOT worth saving, return ONLY: null
+The user's existing notes are listed below. If this exchange is about the SAME topic as one of
+them (e.g. more detail about the same project/plan), do NOT create a duplicate note - instead
+return an update to that note, with "content" being the existing content plus whatever is new
+(don't drop old information). If it's a genuinely new topic, create a new note. If there's
+nothing new or note-worthy at all, return null.
+
+Existing notes:
+{existing_notes}
+
+If it's a NEW note, return ONLY this JSON, nothing else: {{"title": "...", "content": "..."}}
+If it UPDATES an existing note, return ONLY: {{"update_id": <id>, "title": "...", "content": "..."}}
+If nothing is worth saving, return ONLY: null
 
 Exchange:
 User: {user_message}
@@ -41,7 +51,13 @@ def delete_note(user_id: str, note_id: int) -> None:
 
 
 def maybe_create_note(user_id: str, user_message: str, assistant_message: str) -> dict | None:
-    prompt = AUTO_NOTE_PROMPT.format(user_message=user_message, assistant_message=assistant_message)
+    existing = list_notes(user_id)
+    existing_block = (
+        "\n".join(f"- id {n['id']}: {n['title']}" for n in existing) if existing else "(none yet)"
+    )
+    prompt = AUTO_NOTE_PROMPT.format(
+        existing_notes=existing_block, user_message=user_message, assistant_message=assistant_message
+    )
     raw = chat([{"role": "user", "content": prompt}], temperature=0.0)
 
     # Models don't always follow "return ONLY JSON" - pull the first {...} block out of
@@ -57,5 +73,11 @@ def maybe_create_note(user_id: str, user_message: str, assistant_message: str) -
 
     if not isinstance(data, dict) or not data.get("title") or not data.get("content"):
         return None
+
+    update_id = data.get("update_id")
+    valid_ids = {n["id"] for n in existing}
+    if update_id in valid_ids:
+        update_note(user_id, update_id, data["title"], data["content"])
+        return {"id": update_id, "title": data["title"], "content": data["content"]}
 
     return add_note(user_id, data["title"], data["content"])

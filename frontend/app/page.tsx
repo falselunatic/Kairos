@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/AuthProvider";
 import { Sidebar } from "@/components/Sidebar";
 import { RecentActivity } from "@/components/RecentActivity";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
 import styles from "./page.module.css";
 
 type Message = {
@@ -82,6 +83,7 @@ export default function Home() {
         },
         body: JSON.stringify({ message: text }),
       });
+      if (!res.ok) throw new Error(await extractErrorDetail(res));
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
@@ -91,10 +93,10 @@ export default function Home() {
           memoriesLearned: data.memories_learned,
         },
       ]);
-    } catch {
+    } catch (err) {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "(couldn't reach the backend, is it running?)" },
+        { role: "assistant", content: `(${friendlyFetchError(err, "something went wrong, try again.")})` },
       ]);
     } finally {
       setLoading(false);

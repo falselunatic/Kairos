@@ -7,6 +7,19 @@ export function friendlyFetchError(err: unknown, fallback: string): string {
   return err instanceof Error ? err.message : fallback;
 }
 
+/** Reads the error detail out of a non-ok response (FastAPI's HTTPException body has a
+ * `detail` string; an unhandled exception falls back to a plain-text "Internal Server
+ * Error" page instead, so this degrades to the status text rather than throwing). */
+export async function extractErrorDetail(res: Response): Promise<string> {
+  try {
+    const body = await res.json();
+    if (typeof body?.detail === "string") return body.detail;
+  } catch {
+    // not JSON - the default unhandled-exception response is plain text
+  }
+  return res.statusText || `Request failed (${res.status})`;
+}
+
 const RETRY_DELAYS_MS = [800, 2000, 4000];
 
 /** Retries with backoff on a network-level failure (TypeError) - smooths over the dev backend

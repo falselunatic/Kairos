@@ -8,6 +8,7 @@ import { BrandName } from "@/components/BrandName";
 import { Markdown } from "@/components/Markdown";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { SchemaDiagram } from "@/components/SchemaDiagram";
+import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
 import { DataFlowDiagram } from "@/components/DataFlowDiagram";
 import styles from "./about.module.css";
 
@@ -83,10 +84,11 @@ export default function AboutPage() {
         },
         body: JSON.stringify({ question }),
       });
+      if (!res.ok) throw new Error(await extractErrorDetail(res));
       const data = await res.json();
       setAnswer(data.reply);
-    } catch {
-      setAnswer("Couldn't reach the backend.");
+    } catch (err) {
+      setAnswer(friendlyFetchError(err, "Something went wrong, try again."));
     } finally {
       setAsking(false);
     }

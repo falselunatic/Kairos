@@ -7,7 +7,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { BrandName } from "@/components/BrandName";
 import { Markdown } from "@/components/Markdown";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
-import { fetchWithRetry, friendlyFetchError } from "@/lib/errors";
+import { extractErrorDetail, fetchWithRetry, friendlyFetchError } from "@/lib/errors";
 import styles from "./docs.module.css";
 
 type Doc = { id: number; title: string; created_at: string };
@@ -189,7 +189,7 @@ export default function DocsPage() {
           history: qaHistory.slice(-3).map((qa) => ({ question: qa.question, answer: qa.answer })),
         }),
       });
-      if (!res.ok) throw new Error("Could not get an answer.");
+      if (!res.ok) throw new Error(await extractErrorDetail(res));
       const data = await res.json();
       setQaHistory((prev) => [
         ...prev,

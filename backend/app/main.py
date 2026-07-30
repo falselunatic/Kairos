@@ -2,8 +2,10 @@ import logging
 import urllib.parse
 from concurrent.futures import Future, ThreadPoolExecutor
 
-from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from groq import RateLimitError
 from pydantic import BaseModel
 
 from app.auth import get_current_user_id
@@ -61,6 +63,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(RateLimitError)
+async def groq_rate_limit_handler(request: Request, exc: RateLimitError) -> JSONResponse:
+    # Groq's free tier has a daily token cap - surface this as a clear, expected
+    # condition instead of a bare 500 that reads as "the backend is broken".
+    return JSONResponse(
+        status_code=429,
+        content={"detail": "Kairos hit Groq's free-tier rate limit for today. Try again later."},
+    )
 
 ABOUT_KAIROS = """If asked about your own architecture, tech stack, database, or how you
 were built, answer accurately using these facts (don't guess or make anything up beyond this):
