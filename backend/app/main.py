@@ -57,9 +57,11 @@ def run_in_background(fn, *args) -> None:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
-    # chrome-extension origins (random per install) and ngrok tunnel URLs (random per
-    # session when sharing the project) - both change every time, so match by pattern.
-    allow_origin_regex=r"chrome-extension://.*|https://.*\.ngrok-free\.app",
+    # chrome-extension origins (random per install), ngrok tunnel URLs (random per
+    # session when sharing the project), and Vercel preview/prod deployments (each
+    # branch/PR gets its own subdomain) - all change per install/session, so match
+    # by pattern instead of a fixed list.
+    allow_origin_regex=r"chrome-extension://.*|https://.*\.ngrok-free\.app|https://.*\.vercel\.app",
     allow_methods=["*"],
     allow_headers=["*"],
 )
