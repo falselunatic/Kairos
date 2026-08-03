@@ -28,6 +28,31 @@
   margin-bottom: 0.2rem;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.galaxyButton {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 0.8rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.galaxyButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .forgetAllButton {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
@@ -135,5 +160,9 @@
   .panel {
     padding: 1rem;
     border-radius: 0.9rem;
+  }
+
+  .headerActions {
+    flex-wrap: wrap;
   }
 }

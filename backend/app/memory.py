@@ -1,4 +1,5 @@
 import json
+import math
 
 from app.db import delete, insert, rpc, select
 from app.llm import chat, embed
@@ -69,3 +70,90 @@ def delete_memory(user_id: str, memory_id: int) -> None:
 
 def clear_memories(user_id: str) -> None:
     delete("memories", {"user_id": user_id})
+
+
+def _cosine_similarity(a: list[float], b: list[float]) -> float:
+    dot = sum(x * y for x, y in zip(a, b))
+    norm_a = math.sqrt(sum(x * x for x in a))
+    norm_b = math.sqrt(sum(y * y for y in b))
+    if norm_a == 0 or norm_b == 0:
+        return 0.0
+    return dot / (norm_a * norm_b)
+
+
+NEIGHBOR_THRESHOLD = 0.35  # below this, two memories aren't considered related at all
+NEIGHBORS_PER_NODE = 4  # keep the graph sparse - a full mesh is unreadable past a few dozen nodes
+CLUSTER_THRESHOLD = 0.55  # edges at least this similar pull their nodes into the same cluster
+
+
+def get_memory_graph(user_id: str) -> dict:
+    rows = rpc("get_memories_with_embeddings", {"p_user_id": user_id})
+    if len(rows) < 2:
+        nodes = [
+            {"id": r["id"], "content": r["content"], "created_at": r["created_at"], "cluster": 0}
+            for r in rows
+        ]
+        return {"nodes": nodes, "edges": []}
+
+    n = len(rows)
+    embeddings = [r["embedding"] for r in rows]
+
+    # Full pairwise similarity - fine at this scale (RPC already caps at 400 memories).
+    similarities: dict[tuple[int, int], float] = {}
+    for i in range(n):
+        for j in range(i + 1, n):
+            sim = _cosine_similarity(embeddings[i], embeddings[j])
+            if sim >= NEIGHBOR_THRESHOLD:
+                similarities[(i, j)] = sim
+
+    # Keep only each node's strongest few connections so the graph stays a legible
+    # constellation instead of a solid mesh of lines.
+    neighbors_by_node: dict[int, list[tuple[int, float]]] = {i: [] for i in range(n)}
+    for (i, j), sim in similarities.items():
+        neighbors_by_node[i].append((j, sim))
+        neighbors_by_node[j].append((i, sim))
+
+    kept_edges: set[tuple[int, int]] = set()
+    for i, neighbors in neighbors_by_node.items():
+        neighbors.sort(key=lambda pair: pair[1], reverse=True)
+        for j, _sim in neighbors[:NEIGHBORS_PER_NODE]:
+            kept_edges.add((min(i, j), max(i, j)))
+
+    # Union-find so tightly related memories share a cluster/color.
+    parent = list(range(n))
+
+    def find(x: int) -> int:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(x: int, y: int) -> None:
+        root_x, root_y = find(x), find(y)
+        if root_x != root_y:
+            parent[root_y] = root_x
+
+    for (i, j) in kept_edges:
+        if similarities[(i, j)] >= CLUSTER_THRESHOLD:
+            union(i, j)
+
+    cluster_ids: dict[int, int] = {}
+    for i in range(n):
+        root = find(i)
+        if root not in cluster_ids:
+            cluster_ids[root] = len(cluster_ids)
+
+    nodes = [
+        {
+            "id": rows[i]["id"],
+            "content": rows[i]["content"],
+            "created_at": rows[i]["created_at"],
+            "cluster": cluster_ids[find(i)],
+        }
+        for i in range(n)
+    ]
+    edges = [
+        {"source": rows[i]["id"], "target": rows[j]["id"], "weight": round(similarities[(i, j)], 3)}
+        for (i, j) in kept_edges
+    ]
+    return {"nodes": nodes, "edges": edges}

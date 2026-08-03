@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/AuthProvider";
 import { Sidebar } from "@/components/Sidebar";
 import { BrandName } from "@/components/BrandName";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import Link from "next/link";
 import styles from "./memories.module.css";
 
 type Memory = {
@@ -82,15 +83,22 @@ export default function MemoriesPage() {
               Everything Kairos has picked up about you so far. You're in control of it.
             </div>
           </div>
-          {memories.length > 0 && (
-            <button
-              className={styles.forgetAllButton}
-              onClick={() => setConfirmingForget(true)}
-              disabled={clearing}
-            >
-              {clearing ? "Forgetting..." : "Forget all"}
-            </button>
-          )}
+          <div className={styles.headerActions}>
+            {memories.length > 0 && (
+              <Link href="/memories/galaxy" className={styles.galaxyButton}>
+                View as Galaxy
+              </Link>
+            )}
+            {memories.length > 0 && (
+              <button
+                className={styles.forgetAllButton}
+                onClick={() => setConfirmingForget(true)}
+                disabled={clearing}
+              >
+                {clearing ? "Forgetting..." : "Forget all"}
+              </button>
+            )}
+          </div>
         </div>
 
         <ConfirmDialog

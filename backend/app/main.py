@@ -16,6 +16,7 @@ from app.memory import (
     clear_messages,
     delete_memory,
     extract_and_store_memories,
+    get_memory_graph,
     list_memories,
     list_messages,
     retrieve_relevant_memories,
@@ -202,6 +203,11 @@ def delete_memory_endpoint(memory_id: int, user_id: str = Depends(get_current_us
 def clear_memories_endpoint(user_id: str = Depends(get_current_user_id)):
     clear_memories(user_id)
     return {"status": "cleared"}
+
+
+@app.get("/memories/graph")
+def memories_graph_endpoint(user_id: str = Depends(get_current_user_id)):
+    return get_memory_graph(user_id)
 
 
 TOTAL_ROUNDS = 5
