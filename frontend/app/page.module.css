@@ -198,6 +198,7 @@
 
 .input {
   flex: 1;
+  min-width: 0;
   padding: 0.65rem 1rem;
   border-radius: 999px;
   border: 1px solid var(--border);
@@ -215,6 +216,7 @@
   font-size: 0.95rem;
   cursor: pointer;
   font-weight: 500;
+  flex-shrink: 0;
   transition: transform 0.15s ease;
 }
 

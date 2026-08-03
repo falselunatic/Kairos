@@ -92,6 +92,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   font-weight: 500;
+  flex-shrink: 0;
 }
 
 .button:disabled {

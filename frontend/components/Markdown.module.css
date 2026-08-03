@@ -18,6 +18,12 @@
   font-size: 0.85em;
 }
 
+.prose {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
 .prose :global(p) {
   margin: 0 0 0.5rem;
 }

@@ -9,6 +9,7 @@ import { Markdown } from "@/components/Markdown";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { SchemaDiagram } from "@/components/SchemaDiagram";
 import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
+import { blurActiveElement } from "@/lib/dom";
 import { DataFlowDiagram } from "@/components/DataFlowDiagram";
 import styles from "./about.module.css";
 
@@ -72,6 +73,7 @@ export default function AboutPage() {
 
   async function handleAsk(e: React.FormEvent) {
     e.preventDefault();
+    blurActiveElement();
     if (!question.trim() || !session) return;
     setAsking(true);
     setAnswer(null);

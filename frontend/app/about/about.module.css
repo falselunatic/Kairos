@@ -153,6 +153,7 @@
 
 .askInput {
   flex: 1;
+  min-width: 0;
   padding: 0.6rem 0.9rem;
   border-radius: 0.7rem;
   border: 1px solid var(--border);
@@ -170,6 +171,7 @@
   font-size: 0.88rem;
   cursor: pointer;
   font-weight: 500;
+  flex-shrink: 0;
 }
 
 .askButton:disabled {

@@ -7,6 +7,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { RecentActivity } from "@/components/RecentActivity";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
+import { blurActiveElement } from "@/lib/dom";
 import styles from "./page.module.css";
 
 type Message = {
@@ -67,6 +68,7 @@ export default function Home() {
 
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault();
+    blurActiveElement();
     const text = input.trim();
     if (!text || loading || !session) return;
 

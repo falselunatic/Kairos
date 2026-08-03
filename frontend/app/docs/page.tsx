@@ -8,6 +8,7 @@ import { BrandName } from "@/components/BrandName";
 import { Markdown } from "@/components/Markdown";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { extractErrorDetail, fetchWithRetry, friendlyFetchError } from "@/lib/errors";
+import { blurActiveElement } from "@/lib/dom";
 import styles from "./docs.module.css";
 
 type Doc = { id: number; title: string; created_at: string };
@@ -174,6 +175,7 @@ export default function DocsPage() {
 
   async function handleAsk(e: React.FormEvent) {
     e.preventDefault();
+    blurActiveElement();
     if (!question.trim() || !session) return;
     const asked = question;
     setAsking(true);
@@ -308,7 +310,7 @@ export default function DocsPage() {
             <div className={styles.row}>
               <input
                 className={styles.input}
-                style={{ flex: 1 }}
+                style={{ flex: 1, minWidth: 0 }}
                 placeholder="What do you want to know?"
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}

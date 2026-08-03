@@ -8,6 +8,7 @@ import { BrandName } from "@/components/BrandName";
 import { Markdown } from "@/components/Markdown";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
+import { blurActiveElement } from "@/lib/dom";
 import styles from "./code.module.css";
 
 type Message = { role: "user" | "assistant"; content: string; searchUrl?: string | null };
@@ -55,6 +56,7 @@ export default function CodePage() {
 
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault();
+    blurActiveElement();
     const text = input.trim();
     if (!text || loading || !session) return;
 

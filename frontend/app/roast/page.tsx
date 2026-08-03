@@ -7,6 +7,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { BrandName } from "@/components/BrandName";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
+import { blurActiveElement } from "@/lib/dom";
 import styles from "./roast.module.css";
 
 type Round = {
@@ -76,6 +77,7 @@ export default function RoastBattlePage() {
 
   async function submitReply(e: React.FormEvent) {
     e.preventDefault();
+    blurActiveElement();
     const text = input.trim();
     if (!text || loading || !session || battleId === null) return;
 
