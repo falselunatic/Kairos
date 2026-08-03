@@ -2,11 +2,11 @@ import styles from "./BrandName.module.css";
 
 export function BrandName({ showTooltip = true }: { showTooltip?: boolean }) {
   return (
-    <span className={styles.brand}>
+    <span
+      className={styles.brand}
+      title={showTooltip ? 'Greek: "the right, opportune moment"' : undefined}
+    >
       Kairos
-      {showTooltip && (
-        <span className={styles.tooltip}>Greek: &ldquo;the right, opportune moment&rdquo;</span>
-      )}
     </span>
   );
 }
