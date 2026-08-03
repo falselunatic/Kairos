@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/lib/AuthProvider";
 import { useTheme } from "@/lib/ThemeProvider";
@@ -52,6 +52,23 @@ export function Sidebar() {
   const { session } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [hamburgerHidden, setHamburgerHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+    function onScroll() {
+      const y = window.scrollY;
+      // Hide while scrolling down past the top (where it'd overlap page content on
+      // pages that scroll the whole window, e.g. Docs/Notes/Memories/Roast/About -
+      // Chat/Code scroll an inner panel instead, so this never triggers there).
+      // Scrolling back up even slightly brings it back so it's always reachable.
+      setHamburgerHidden(y > lastScrollY.current && y > 60);
+      lastScrollY.current = y;
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const initial = session?.user?.email?.[0]?.toUpperCase() ?? "?";
 
@@ -65,7 +82,11 @@ export function Sidebar() {
 
   return (
     <>
-      <button className={styles.hamburger} onClick={() => setOpen(true)} aria-label="Open menu">
+      <button
+        className={`${styles.hamburger} ${hamburgerHidden ? styles.hamburgerHidden : ""}`}
+        onClick={() => setOpen(true)}
+        aria-label="Open menu"
+      >
         <MenuIcon />
       </button>
 
