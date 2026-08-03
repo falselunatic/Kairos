@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/AuthProvider";
 import { Sidebar } from "@/components/Sidebar";
 import { BrandName } from "@/components/BrandName";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
 import styles from "./roast.module.css";
 
 type Round = {
@@ -34,6 +35,7 @@ export default function RoastBattlePage() {
   const [loading, setLoading] = useState(false);
   const [starting, setStarting] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
+  const [error, setError] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function RoastBattlePage() {
   async function startBattle() {
     if (!session) return;
     setStarting(true);
+    setError("");
     setRounds([]);
     setUserTotal(0);
     setKairosTotal(0);
@@ -59,11 +62,13 @@ export default function RoastBattlePage() {
         method: "POST",
         headers: { Authorization: `Bearer ${session.access_token}` },
       });
+      if (!res.ok) throw new Error(await extractErrorDetail(res));
       const data = await res.json();
       setBattleId(data.battle_id);
       setRounds([{ round: data.round, kairosLine: data.kairos_line }]);
-    } catch {
+    } catch (err) {
       // leave start screen up so the user can retry
+      setError(friendlyFetchError(err, "Could not start a battle."));
     } finally {
       setStarting(false);
     }
@@ -75,6 +80,7 @@ export default function RoastBattlePage() {
     if (!text || loading || !session || battleId === null) return;
 
     setLoading(true);
+    setError("");
     setInput("");
 
     try {
@@ -86,6 +92,7 @@ export default function RoastBattlePage() {
         },
         body: JSON.stringify({ message: text }),
       });
+      if (!res.ok) throw new Error(await extractErrorDetail(res));
       const data = await res.json();
 
       setRounds((prev) => {
@@ -108,8 +115,10 @@ export default function RoastBattlePage() {
         setFinished(true);
         setWinner(data.winner);
       }
-    } catch {
-      // no-op; user can retry the same line
+    } catch (err) {
+      // restore what they typed so they don't lose it, and let them retry
+      setInput(text);
+      setError(friendlyFetchError(err, "Could not send that line."));
     } finally {
       setLoading(false);
     }
@@ -170,6 +179,7 @@ export default function RoastBattlePage() {
               <button className={styles.button} onClick={startBattle} disabled={starting}>
                 {starting ? "Warming up..." : "Start Roast Battle"}
               </button>
+              {error && <div className={styles.errorText}>{error}</div>}
             </div>
           ) : (
             <>

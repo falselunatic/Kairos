@@ -26,9 +26,9 @@
 .tooltip {
   position: absolute;
   left: 0;
-  bottom: 100%;
-  margin-bottom: 0.5rem;
-  transform: translateY(-4px);
+  top: 100%;
+  margin-top: 0.5rem;
+  transform: translateY(4px);
   background: var(--input-bg);
   color: var(--foreground);
   border: 1px solid var(--border);

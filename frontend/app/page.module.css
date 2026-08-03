@@ -242,6 +242,12 @@
     padding: 4.5rem 0.75rem 1rem;
   }
 
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
   .title {
     font-size: 1.4rem;
   }

@@ -23,7 +23,8 @@ const fredoka = Fredoka({
 
 export const metadata: Metadata = {
   title: "Kairos",
-  description: "A companion agent that remembers you and crafts puzzles just for you.",
+  description:
+    "A companion agent that remembers you over time - chat, a coding assistant, document Q&A, notes, and a roast battle game.",
 };
 
 export default function RootLayout({
