@@ -50,6 +50,9 @@
 }
 
 .voiceToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
   border: 1px solid var(--border);
@@ -238,7 +241,7 @@
   border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--background);
-  font-size: 1.1rem;
+  color: var(--foreground);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -248,6 +251,7 @@
 .micButtonActive {
   border-color: var(--accent);
   background: var(--accent);
+  color: var(--accent-fg);
   animation: pulse 1.2s infinite;
 }
 
