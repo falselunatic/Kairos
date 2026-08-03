@@ -8,6 +8,7 @@ import { RecentActivity } from "@/components/RecentActivity";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { extractErrorDetail, friendlyFetchError } from "@/lib/errors";
 import { blurActiveElement } from "@/lib/dom";
+import { useVoiceInput, useVoiceOutput } from "@/lib/useVoice";
 import styles from "./page.module.css";
 
 type Message = {
@@ -27,6 +28,11 @@ export default function Home() {
   const [historyLoading, setHistoryLoading] = useState(true);
   const [confirmingClear, setConfirmingClear] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { listening, supported: voiceInputSupported, toggle: toggleListening } = useVoiceInput(
+    (text) => setInput((prev) => (prev ? `${prev} ${text}` : text))
+  );
+  const { enabled: speakEnabled, setEnabled: setSpeakEnabled, supported: voiceOutputSupported, speak } =
+    useVoiceOutput();
 
   useEffect(() => {
     if (!authLoading && !session) {
@@ -95,6 +101,7 @@ export default function Home() {
           memoriesLearned: data.memories_learned,
         },
       ]);
+      speak(data.reply);
     } catch (err) {
       setMessages((prev) => [
         ...prev,
@@ -121,11 +128,23 @@ export default function Home() {
               A companion that remembers you, chat about anything.
             </div>
           </div>
-          {messages.length > 0 && (
-            <button className={styles.clearButton} onClick={() => setConfirmingClear(true)}>
-              Clear chat
-            </button>
-          )}
+          <div className={styles.headerActions}>
+            {voiceOutputSupported && (
+              <button
+                type="button"
+                className={`${styles.voiceToggle} ${speakEnabled ? styles.voiceToggleActive : ""}`}
+                onClick={() => setSpeakEnabled((v) => !v)}
+                title={speakEnabled ? "Kairos will speak replies aloud" : "Replies are text-only"}
+              >
+                {speakEnabled ? "🔊 Voice on" : "🔇 Voice off"}
+              </button>
+            )}
+            {messages.length > 0 && (
+              <button className={styles.clearButton} onClick={() => setConfirmingClear(true)}>
+                Clear chat
+              </button>
+            )}
+          </div>
         </div>
 
         <ConfirmDialog
@@ -180,11 +199,22 @@ export default function Home() {
           </div>
 
           <form className={styles.form} onSubmit={sendMessage}>
+            {voiceInputSupported && (
+              <button
+                type="button"
+                className={`${styles.micButton} ${listening ? styles.micButtonActive : ""}`}
+                onClick={toggleListening}
+                title={listening ? "Stop listening" : "Speak your message"}
+                aria-label={listening ? "Stop listening" : "Speak your message"}
+              >
+                {listening ? "⏺" : "🎤"}
+              </button>
+            )}
             <input
               className={styles.input}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Say something..."
+              placeholder={listening ? "Listening..." : "Say something..."}
               autoFocus
             />
             <button className={styles.button} type="submit" disabled={loading}>

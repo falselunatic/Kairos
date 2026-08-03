@@ -59,11 +59,12 @@ export function Sidebar() {
     lastScrollY.current = window.scrollY;
     function onScroll() {
       const y = window.scrollY;
-      // Hide while scrolling down past the top (where it'd overlap page content on
-      // pages that scroll the whole window, e.g. Docs/Notes/Memories/Roast/About -
-      // Chat/Code scroll an inner panel instead, so this never triggers there).
-      // Scrolling back up even slightly brings it back so it's always reachable.
-      setHamburgerHidden(y > lastScrollY.current && y > 60);
+      // Hide as soon as the page leaves the very top, in either scroll direction -
+      // on pages that scroll the whole window (Docs/Notes/Memories/Roast/About),
+      // any scroll offset moves the heading up underneath this fixed button, so
+      // waiting for a "scrolled down past 60px" threshold left a window where it
+      // still overlapped the heading. Only reappear once back near the top.
+      setHamburgerHidden(y > 8);
       lastScrollY.current = y;
     }
     window.addEventListener("scroll", onScroll, { passive: true });

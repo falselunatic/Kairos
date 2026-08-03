@@ -14,13 +14,18 @@
   transition: transform 0.15s ease;
 }
 
-.brand:hover {
-  transform: scale(1.03);
-}
+/* Touchscreens don't have real hover - tapping fires CSS :hover anyway and it stays
+   "on" until something else is tapped, with no room reserved for it, so it just floats
+   over whatever's underneath. Gate the whole effect to devices that can actually hover. */
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover {
+    transform: scale(1.03);
+  }
 
-.brand:hover .tooltip {
-  opacity: 1;
-  transform: translateY(0);
+  .brand:hover .tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .tooltip {

@@ -25,6 +25,13 @@
   margin-bottom: 1.25rem;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .clearButton {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
@@ -40,6 +47,23 @@
 .clearButton:hover {
   background: var(--accent);
   color: var(--accent-fg);
+}
+
+.voiceToggle {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.voiceToggleActive {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .title {
@@ -207,6 +231,36 @@
   font-size: 0.95rem;
 }
 
+.micButton {
+  flex-shrink: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--background);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.micButtonActive {
+  border-color: var(--accent);
+  background: var(--accent);
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+}
+
 .button {
   padding: 0.65rem 1.3rem;
   border-radius: 999px;
@@ -252,6 +306,10 @@
 
   .title {
     font-size: 1.4rem;
+  }
+
+  .headerActions {
+    flex-wrap: wrap;
   }
 
   .panel {
