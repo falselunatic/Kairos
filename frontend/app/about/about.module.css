@@ -199,13 +199,13 @@
   }
 
   .container {
-    padding-top: 4.5rem;
+    padding-top: 5.5rem;
   }
 }
 
 @media (max-width: 600px) {
   .container {
-    padding: 4.5rem 0.75rem 2rem;
+    padding: 5.5rem 0.75rem 2rem;
   }
 
   .panel {

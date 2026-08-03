@@ -1,5 +1,5 @@
 .page {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   padding-left: 220px;
@@ -14,7 +14,7 @@
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
 }
 
 .header {
@@ -266,13 +266,13 @@
   }
 
   .container {
-    padding-top: 4.5rem;
+    padding-top: 5.5rem;
   }
 }
 
 @media (max-width: 600px) {
   .container {
-    padding: 4.5rem 0.75rem 1rem;
+    padding: 5.5rem 0.75rem 1rem;
   }
 
   .header {
