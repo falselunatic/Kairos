@@ -18,7 +18,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const STACK = [
   {
     title: "Frontend",
-    body: "Next.js (App Router). Pages for chat, a coding assistant, document Q&A, notes, memories, a roast battle game, and this about page, all sharing one persistent left sidebar.",
+    body: "Next.js (App Router). Pages for chat, a coding assistant, document Q&A, notes, memories (including an interactive Memory Galaxy graph view), a roast battle game, and this about page, all sharing one persistent left sidebar.",
   },
   {
     title: "Backend",
@@ -40,7 +40,7 @@ const STACK = [
 
 const TABLES = [
   { name: "messages", desc: "Every chat message, tagged with a channel (chat vs code) so the two have separate histories." },
-  { name: "memories", desc: "Short facts extracted from conversations across chat, Kairos Code, and doc Q&A. Each has a vector embedding for similarity search." },
+  { name: "memories", desc: "Short facts extracted from conversations across chat, Kairos Code, and doc Q&A. Each has a vector embedding for similarity search, which also powers the Memory Galaxy graph view." },
   { name: "documents", desc: "Metadata for each uploaded file: title, owner, upload time." },
   { name: "doc_chunks", desc: "Uploaded files split into chunks, each with its own embedding, used to answer questions about them." },
   { name: "notes", desc: "Notes you write yourself, plus notes Kairos writes on its own when a conversation has something worth saving." },
