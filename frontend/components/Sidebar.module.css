@@ -38,6 +38,7 @@
   gap: 1.5rem;
   z-index: 20;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .closeButton {

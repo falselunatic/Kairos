@@ -8,12 +8,17 @@ AUTO_NOTE_PROMPT = """You are Kairos's note-taking system. Read the exchange bel
 whether it contains something worth saving as a standalone note ABOUT THE USER: a decision
 they made, a plan, a to-do, a deadline, a project or task they mentioned, a preference, or any
 other fact about their own life, work, or plans that they'd plausibly want to look back at later.
+This includes small everyday to-dos and reminders, even short ones - e.g. "I need to buy
+groceries today" or "gotta call the dentist tomorrow" ARE worth saving, they're real to-dos,
+not small talk.
 
 Do NOT save generic explanations, definitions, tutorials, or how-to answers that aren't
 specific to the user - e.g. "what does npm run do" or "explain recursion" are Kairos teaching
 a general concept, not something about the user, so those must return null even though they're
 informative. Only save it if it's actually about the user's own situation, not a fact Kairos
-supplied about the world in general. Skip small talk and one-off throwaway remarks too.
+supplied about the world in general. Skip pure conversational filler with no actual content
+(e.g. "lol", "cool thanks", "haha ok") - but don't confuse that with a genuine short to-do,
+which should always be saved even if brief.
 
 The user's existing notes are listed below. If this exchange is about the SAME topic as one of
 them (e.g. more detail about the same project/plan), do NOT create a duplicate note - instead
