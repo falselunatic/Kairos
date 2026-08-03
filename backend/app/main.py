@@ -82,7 +82,8 @@ were built, answer accurately using these facts (don't guess or make anything up
 
 ARCHITECTURE
 - Frontend: Next.js (App Router) - pages for chat, a coding assistant ("Kairos Code"),
-  document Q&A, notes, memories, a roast battle game, and an about page (this one).
+  document Q&A, notes, memories (including an interactive "Memory Galaxy" graph view),
+  a roast battle game, and an about page (this one).
 - Backend: FastAPI (Python) - talks to Supabase over its HTTPS REST/RPC API, not a raw
   database connection (chosen so it still works on networks that block direct Postgres).
 - Database: Supabase Postgres with the pgvector extension for similarity search.
@@ -122,6 +123,11 @@ HOW DATA FLOWS
 5. Roast battle: Kairos generates a line (from memories or, in the extension, from
    your current browser tab) -> you reply -> a separate Groq call judges both lines ->
    scores update -> repeat for 5 rounds.
+6. Memory Galaxy: computes cosine similarity between every pair of your memories'
+   embeddings, keeps each memory's few strongest connections so the graph stays
+   readable, and groups tightly related ones into color clusters - the frontend then
+   lays it out with a small physics simulation (repulsion between nodes, springs
+   along connections) so related memories visibly drift together.
 What's common across every feature: the same Postgres database, the same embedding
 model, the same Groq LLM, and the same per-user memory store.
 """

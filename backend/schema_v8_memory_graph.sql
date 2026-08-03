@@ -7,7 +7,9 @@ create or replace function get_memories_with_embeddings(p_user_id uuid)
 returns table (id int, content text, created_at timestamptz, embedding float8[])
 language sql
 as $$
-  select id, content, created_at, embedding::float8[]
+  -- pgvector's `vector` type only casts directly to real[] (float4), not float8[] -
+  -- go through that first.
+  select id, content, created_at, embedding::real[]::float8[]
   from memories
   where user_id = p_user_id
   order by created_at desc

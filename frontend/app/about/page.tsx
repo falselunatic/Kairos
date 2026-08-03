@@ -56,6 +56,7 @@ const DATA_FLOW = [
   "Uploading a doc extracts its text, splits it into chunks, and embeds each chunk into doc_chunks.",
   "Asking a question about a doc embeds the question, finds the closest chunks, and sends them to Groq as context for the answer.",
   "A roast battle line comes from the same memory store (or, via the extension, your current browser tab), and a separate Groq call judges each round.",
+  "The Memory Galaxy compares every pair of your memories by embedding similarity, keeps each one's strongest few connections, and groups closely related ones into color clusters - then animates them into a physics-based layout in the browser.",
 ];
 
 export default function AboutPage() {

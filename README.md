@@ -45,7 +45,7 @@ Main navigation (left sidebar): Chat, Code, Docs Q&A, Notes. Utility row
 | `/code` | Kairos Code - a coding-assistant chat mode, same Groq model, its own persistent chat history |
 | `/docs` | Upload one or many `.txt`/`.md`/`.pdf`/`.docx` files, then ask questions about them (RAG). Prefers your docs but falls back to general knowledge when they don't cover it (and says so), supports follow-up questions ("and for X"), knows about every doc you've uploaded even if a given question doesn't match any of it, and keeps your question history across visits |
 | `/notes` | Create/edit/delete notes yourself. Kairos also saves its own notes automatically from chat/Code conversations when something's worth remembering (a decision, a plan, a calculation) - no button to press. Lines that are plain arithmetic (e.g. `12 * 3 + 4`) show their computed result automatically |
-| `/memories` | View/delete individual memories, or forget everything |
+| `/memories` | View/delete individual memories, or forget everything. "View as Galaxy" opens an interactive, physics-animated graph of your memories, clustered and connected by how related they are |
 | `/roast` | Best-of-5 roast battle - Kairos throws jabs using what it knows about you, with a "Reset battle" option |
 | `/about` | Explains the whole architecture, tech stack, and database tables in detail, with a visual architecture diagram and an embedded chat to ask Kairos questions about itself |
 | Chrome extension | Proactively pings you and starts a roast battle based on your current tab; also links out to all the pages above |
@@ -108,6 +108,7 @@ Everything Kairos has picked up about you, with per-item and forget-all controls
 ![Memories, list](screenshots/memories1.png)
 ![Memories, more examples](screenshots/memories2.png)
 ![Memories, confirming forget-all](screenshots/memories3.png)
+![Memory Galaxy, interactive graph view](screenshots/galaxy1.png)
 
 ### Roast Battle
 

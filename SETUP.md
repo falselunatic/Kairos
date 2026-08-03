@@ -29,6 +29,7 @@ otherwise (`cd backend` / `cd frontend`).
    - `backend/schema_v5_channels.sql`
    - `backend/schema_v6_perf.sql`
    - `backend/schema_v7_notes.sql`
+   - `backend/schema_v8_memory_graph.sql`
 3. Get your credentials:
    - **Project URL** and **Publishable key**: Settings → API Keys.
    - **Secret key** (`sb_secret_...`, formerly "service_role"): same page, click the
@@ -128,9 +129,10 @@ Open http://localhost:3000, sign up (email + OTP code, or Google), and start cha
   running in their own terminal at the same time.
 - `curl http://localhost:8000/health` returns `{"status":"ok"}` - if not, the backend
   isn't actually up, check that terminal for an error.
-- All 7 `schema*.sql` files were run in Supabase, in order - a missing one causes silent
-  404s for that one feature only (e.g. skip `schema_v7_notes.sql` and Notes breaks, but
-  everything else works fine).
+- All 8 `schema*.sql` files were run in Supabase, in order - a missing one causes silent
+  404s/500s for that one feature only (e.g. skip `schema_v7_notes.sql` and Notes breaks,
+  or skip `schema_v8_memory_graph.sql` and the Memory Galaxy view 500s, but everything
+  else works fine).
 - `.env` (backend) and `.env.local` (frontend) both exist and are filled in - neither is
   created automatically, you copy from the `.example` file yourself.
 
